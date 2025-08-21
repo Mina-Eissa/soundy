@@ -1,6 +1,8 @@
 # soundy
 soundy will be like any audio app
+--
 [this chat describe what i need to do](https://chatgpt.com/c/68a5f871-5af4-832c-acb0-2a71b2f33264)
+--
 `2025-8-21`
 -[X]Install Django, DRF, PostgreSQL.
 -[X]Create a new project `soundy/`.
