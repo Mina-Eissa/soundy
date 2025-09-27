@@ -1,2 +1,7 @@
 .env
 sound-env/
+test.http
+*.png
+*.jpg
+*.jpeg
+*.mp3
