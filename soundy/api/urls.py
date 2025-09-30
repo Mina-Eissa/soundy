@@ -18,6 +18,8 @@ urlpatterns = [
     path('', include(member_router.urls)),
     path('',include(track_router.urls)),
     path('', include(playlist_router.urls)),
+    path('signin/',MemberSignInView.as_view(),name='member_signin'),
+    path('signup/',MemberSignUpView.as_view(),name='member_signup'),
     # JWT endpoints
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
