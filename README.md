@@ -29,3 +29,15 @@ soundy will be like any audio app.
 
    1. [X] Local uploads (MEDIA_URL) for now.
    2. [X] Support audio files + cover images.
+
+## `2025-10-03`
+
+1. Models:
+   1. [ ] Like(user, track)
+   2. [ ] Follow(fan → artist)
+   3. [ ] Comment(track, user, text)
+
+2. APIs:
+   . [ ] `POST /tracks/{id}/like/`
+   . [ ] `POST /users/{id}/follow/`
+   . [ ] `POST /tracks/{id}/comment/`
