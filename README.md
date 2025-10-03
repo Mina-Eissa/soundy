@@ -33,11 +33,11 @@ soundy will be like any audio app.
 ## `2025-10-03`
 
 1. Models:
-   1. [ ] Like(user, track)
-   2. [ ] Follow(fan → artist)
-   3. [ ] Comment(track, user, text)
+   1. [X] Like(user, track)
+   2. [X] Follow(fan → artist)
+   3. [X] Comment(track, user, text)
 
 2. APIs:
-   . [ ] `POST /tracks/{id}/like/`
-   . [ ] `POST /users/{id}/follow/`
-   . [ ] `POST /tracks/{id}/comment/`
+   - [ ] `POST /tracks/{id}/like/`
+   - [ ] `POST /users/{id}/follow/`
+   - [ ] `POST /tracks/{id}/comment/`
