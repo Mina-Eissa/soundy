@@ -9,16 +9,34 @@ from datetime import timedelta
 def track_audio(instance, filename):
     ext = filename.split('.')[-1]
     return f"tracks/{instance.name}.{ext}"
-
+class Genre(models.TextChoices):
+    POP = 'Pop', 'Pop'
+    ROCK = 'Rock', 'Rock'
+    JAZZ = 'Jazz', 'Jazz'
+    CLASSICAL = 'Classical', 'Classical'
+    HIPHOP = 'HipHop', 'HipHop'
+    ELECTRONIC = 'Electronic', 'Electronic'
+    COUNTRY = 'Country', 'Country'
+    REGGAE = 'Reggae', 'Reggae'
+    BLUES = 'Blues', 'Blues'
+    METAL = 'Metal', 'Metal'
+    FOLK = 'Folk', 'Folk'
+    RNB = 'RnB', 'RnB'
+    ARABIC = 'Arabic', 'Arabic'
+    OTHER = 'Other', 'Other'   
+    
 class Track(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False,verbose_name="Track ID")
     name = models.CharField(max_length=255, validators=[validate_name],verbose_name="Track Name")
     bio = models.TextField(validators=[validate_safe_text], blank=True, null=True,verbose_name="Track Bio")
     duration = models.DurationField(verbose_name="Track Duration")
+    genre = models.CharField(max_length=50, choices=Genre.choices, default=Genre.OTHER,verbose_name="Track Genre")
     artist = models.OneToOneField(Member, on_delete=models.CASCADE, related_name='tracks')
     cover = models.ImageField(upload_to='track_covers/',validators=[validate_image_mime],default='track_covers/audio_template.jpg')
     audio_file = models.FileField(upload_to=track_audio,validators=[FileExtensionValidator(allowed_extensions=['mp3','wav','flac','ogg','aac','m4a']),validate_audio_mime])
-    
+
+    def __str__(self):
+        return self.name
 
     def save(self, *args, **kwargs):
         # auto-calc duration only if not set

@@ -22,6 +22,10 @@ class Member(AbstractUser):
    
     USERNAME_FIELD='email' 
     REQUIRED_FIELDS = ['username']
+    
+    def __str__(self):
+        return self.username
+
     @property
     def age(self):
         today = date.today()
