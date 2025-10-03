@@ -16,16 +16,16 @@ soundy will be like any audio app.
 1. [ ] Models:
 
    1. [ ] Artist (profile for a user)
-   2. [ ] Track (title, file, cover, duration, artist)
+   2. [X] Track (title, file, cover, duration, artist)
    3. [ ] Album
-   4. [ ] Playlist + PlaylistTrack
+   4. [X] Playlist
 
-2. [ ] APIs:
+2. [X] APIs:
 
-   1. [ ] Create/List/Detail for tracks, playlists, albums.
-   2. [ ] Add/remove tracks from playlists.
+   1. [X] Create/List/Detail for tracks, playlists, albums.
+   2. [X] Add/remove tracks from playlists.
 
-3. [ ] File handling:
+3. [X] File handling:
 
-   1. [ ] Local uploads (MEDIA_URL) for now.
-   2. [ ] Support audio files + cover images.
+   1. [X] Local uploads (MEDIA_URL) for now.
+   2. [X] Support audio files + cover images.
