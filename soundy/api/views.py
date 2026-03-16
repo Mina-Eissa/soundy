@@ -3,3 +3,4 @@ from .view.TrackCRUDView import TrackViewSet
 from .view.PlaylistCRUDView import PlaylistViewSet
 from .view.MemberSignInView import MemberSignInView
 from .view.MemberSignUpView import MemberSignUpView
+from .view.ReactView import ReactView

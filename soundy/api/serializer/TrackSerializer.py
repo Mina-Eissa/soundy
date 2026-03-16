@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from ..models import Track,Member
-from ..serializers import MemberSerializer
+from ..serializers import MemberMiniSerializer
 
 from mutagen import File as MutagenFile
 from datetime import timedelta
@@ -8,7 +8,7 @@ import os
 
 class TrackSerializer(serializers.ModelSerializer):
     # Show nested artist details (read-only)
-    artist = MemberSerializer(read_only=True)
+    artist = MemberMiniSerializer(read_only=True)
 
     # Accept artist by id when writing
     artist_id = serializers.PrimaryKeyRelatedField(
@@ -17,6 +17,7 @@ class TrackSerializer(serializers.ModelSerializer):
         write_only=True
     )
     duration = serializers.DurationField(required=False)
+    reacts = serializers.IntegerField(read_only=True)
     class Meta:
         model = Track
         fields = '__all__'

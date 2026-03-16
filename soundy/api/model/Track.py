@@ -8,7 +8,8 @@ from mutagen import File
 from datetime import timedelta
 def track_audio(instance, filename):
     ext = filename.split('.')[-1]
-    return f"tracks/{instance.name}.{ext}"
+    prefix = str(instance.id).split("-")[0]
+    return f"tracks/{instance.name}-{prefix}.{ext}"
 class Genre(models.TextChoices):
     POP = 'Pop', 'Pop'
     ROCK = 'Rock', 'Rock'
@@ -31,9 +32,10 @@ class Track(models.Model):
     bio = models.TextField(validators=[validate_safe_text], blank=True, null=True,verbose_name="Track Bio")
     duration = models.DurationField(verbose_name="Track Duration")
     genre = models.CharField(max_length=50, choices=Genre.choices, default=Genre.OTHER,verbose_name="Track Genre")
+    plays = models.BigIntegerField(default=0,verbose_name="Number of Plays")
     artist = models.OneToOneField(Member, on_delete=models.CASCADE, related_name='tracks')
     cover = models.ImageField(upload_to='track_covers/',validators=[validate_image_mime],default='track_covers/audio_template.jpg')
-    audio_file = models.FileField(upload_to=track_audio,validators=[FileExtensionValidator(allowed_extensions=['mp3','wav','flac','ogg','aac','m4a']),validate_audio_mime])
+    audio_file = models.FileField(upload_to=track_audio,validators=[FileExtensionValidator(allowed_extensions=['mp3','wav','flac','ogg','aac','m4a'])])
 
     def __str__(self):
         return self.name

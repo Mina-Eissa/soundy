@@ -38,6 +38,7 @@ soundy will be like any audio app.
    3. [X] Comment(track, user, text)
 
 2. APIs:
-   - [ ] `POST /tracks/{id}/like/`
+   - [ ] `POST /React/`
+   - [ ] `GET  /React/`
    - [ ] `POST /users/{id}/follow/`
    - [ ] `POST /tracks/{id}/comment/`
