@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth.hashers import make_password
 from ..models import Member
-from ..independent_func import generate_jwt
+from api.auth import JWTAuthentication
 from ..serializers import MemberSignInSerializer
 class MemberSignInView(APIView):
     
@@ -16,7 +16,7 @@ class MemberSignInView(APIView):
             if not mem_password == instance.password:
                 return Response({"detail": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
             serializer = MemberSignInSerializer(instance)
-            token = generate_jwt(instance)
+            token = JWTAuthentication().generate_jwt(instance)
             return Response({
                 'token': str(token),
                 'member': serializer.data,

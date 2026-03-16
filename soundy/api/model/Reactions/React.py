@@ -25,4 +25,4 @@ class React(models.Model):
         unique_together = ("member", "track")  # each member can react once per track
 
     def __str__(self):
-        return f"{self.member.username} reacted {self.reaction} to {self.track.title}"
+        return f"{self.member.username} reacted {self.reaction} to {self.track.name}"

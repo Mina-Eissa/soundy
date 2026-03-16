@@ -4,8 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from ..models import Member
 from ..serializers import MemberSerializer
-from ..independent_func import generate_jwt
-
+from api.auth import JWTAuthentication
 class MemberSignUpView(CreateAPIView):
     queryset = Member.objects.all()
     serializer_class = MemberSerializer
@@ -15,6 +14,6 @@ class MemberSignUpView(CreateAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
-        token = generate_jwt(serializer.instance)
+        token = JWTAuthentication().generate_jwt(serializer.instance)
         return Response({'token':str(token),
                         'member':serializer.data}, status=status.HTTP_201_CREATED)

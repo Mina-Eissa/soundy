@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
-from rest_framework_simplejwt.authentication import JWTAuthentication
+from ..auth import JWTAuthentication
 from ..serializers import PlaylistReadingSerializer,PlaylistwritingSerializer
 from ..models import Playlist
 class PlaylistViewSet(viewsets.ModelViewSet):
