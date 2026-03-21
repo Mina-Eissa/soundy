@@ -18,5 +18,5 @@ class PlaylistReadingSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Playlist
-        field = '__all__'
+        fields = '__all__'
         

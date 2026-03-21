@@ -5,7 +5,7 @@ class MemberSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only = True)
     password = serializers.CharField(write_only=True)
     birth_date=serializers.DateField(required=True,format="%Y-%m-%d",input_formats=['%Y-%m-%d','%d-%m-%Y','%d/%m/%Y'])
-    created_at=serializers.DateTimeField(format="%Y-%m-%d %H:%M")
+    created_at=serializers.DateTimeField(read_only=True, format="%Y-%m-%d %H:%M")
 
     class Meta:
         model= Member
