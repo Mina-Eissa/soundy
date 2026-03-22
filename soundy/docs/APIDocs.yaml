@@ -1,0 +1,1422 @@
+openapi: 3.0.3
+info:
+  title: My API
+  version: 1.0.0
+  description: My backend APIs
+paths:
+  /api/Comment/:
+    get:
+      operationId: Comment_list
+      tags:
+      - Comment
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Comment'
+          description: ''
+    post:
+      operationId: Comment_create
+      tags:
+      - Comment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Comment'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Comment'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Comment'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+          description: ''
+    put:
+      operationId: Comment_update
+      tags:
+      - Comment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Comment'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Comment'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Comment'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+          description: ''
+    patch:
+      operationId: Comment_partial_update
+      tags:
+      - Comment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedComment'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedComment'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedComment'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+          description: ''
+    delete:
+      operationId: Comment_destroy
+      tags:
+      - Comment
+      responses:
+        '204':
+          description: No response body
+  /api/React/:
+    get:
+      operationId: React_list
+      tags:
+      - React
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/React'
+          description: ''
+    post:
+      operationId: React_create
+      tags:
+      - React
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/React'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/React'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/React'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/React'
+          description: ''
+    delete:
+      operationId: React_destroy
+      tags:
+      - React
+      responses:
+        '204':
+          description: No response body
+  /api/member/:
+    get:
+      operationId: member_list
+      tags:
+      - member
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Member'
+          description: ''
+    post:
+      operationId: member_create
+      tags:
+      - member
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Member'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Member'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Member'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Member'
+          description: ''
+  /api/member/{id}/:
+    get:
+      operationId: member_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Member ID
+        description: A UUID string identifying this user.
+        required: true
+      tags:
+      - member
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Member'
+          description: ''
+    put:
+      operationId: member_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Member ID
+        description: A UUID string identifying this user.
+        required: true
+      tags:
+      - member
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Member'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Member'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Member'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Member'
+          description: ''
+    patch:
+      operationId: member_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Member ID
+        description: A UUID string identifying this user.
+        required: true
+      tags:
+      - member
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedMember'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedMember'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedMember'
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Member'
+          description: ''
+    delete:
+      operationId: member_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Member ID
+        description: A UUID string identifying this user.
+        required: true
+      tags:
+      - member
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/playlist/:
+    get:
+      operationId: playlist_list
+      tags:
+      - playlist
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PlaylistReading'
+          description: ''
+    post:
+      operationId: playlist_create
+      tags:
+      - playlist
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Playlistwriting'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Playlistwriting'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Playlistwriting'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Playlistwriting'
+          description: ''
+  /api/playlist/{id}/:
+    get:
+      operationId: playlist_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this playlist.
+        required: true
+      tags:
+      - playlist
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlaylistReading'
+          description: ''
+    put:
+      operationId: playlist_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this playlist.
+        required: true
+      tags:
+      - playlist
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Playlistwriting'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Playlistwriting'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Playlistwriting'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Playlistwriting'
+          description: ''
+    patch:
+      operationId: playlist_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this playlist.
+        required: true
+      tags:
+      - playlist
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedPlaylistwriting'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedPlaylistwriting'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedPlaylistwriting'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Playlistwriting'
+          description: ''
+    delete:
+      operationId: playlist_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this playlist.
+        required: true
+      tags:
+      - playlist
+      responses:
+        '204':
+          description: No response body
+  /api/schema/:
+    get:
+      operationId: schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - ckb
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - ms
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - ug
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - schema
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/signin/:
+    post:
+      operationId: signin_create
+      tags:
+      - signin
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/signup/:
+    post:
+      operationId: signup_create
+      tags:
+      - signup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Member'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Member'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Member'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Member'
+          description: ''
+  /api/token/:
+    post:
+      operationId: token_create
+      description: |-
+        Takes a set of user credentials and returns an access and refresh JSON web
+        token pair to prove the authentication of those credentials.
+      tags:
+      - token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenObtainPair'
+          description: ''
+  /api/token/refresh/:
+    post:
+      operationId: token_refresh_create
+      description: |-
+        Takes a refresh type JSON web token and returns an access type JSON web
+        token if the refresh token is valid.
+      tags:
+      - token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+  /api/track/:
+    get:
+      operationId: track_list
+      tags:
+      - track
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Track'
+          description: ''
+    post:
+      operationId: track_create
+      tags:
+      - track
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Track'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Track'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Track'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Track'
+          description: ''
+  /api/track/{id}/:
+    get:
+      operationId: track_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Track ID
+        description: A UUID string identifying this track.
+        required: true
+      tags:
+      - track
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Track'
+          description: ''
+    put:
+      operationId: track_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Track ID
+        description: A UUID string identifying this track.
+        required: true
+      tags:
+      - track
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Track'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Track'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Track'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Track'
+          description: ''
+    patch:
+      operationId: track_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Track ID
+        description: A UUID string identifying this track.
+        required: true
+      tags:
+      - track
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedTrack'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedTrack'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedTrack'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Track'
+          description: ''
+    delete:
+      operationId: track_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+          title: Track ID
+        description: A UUID string identifying this track.
+        required: true
+      tags:
+      - track
+      responses:
+        '204':
+          description: No response body
+components:
+  schemas:
+    Comment:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Comment ID
+        member:
+          allOf:
+          - $ref: '#/components/schemas/MemberMini'
+          readOnly: true
+        track:
+          allOf:
+          - $ref: '#/components/schemas/Track'
+          readOnly: true
+        member_id:
+          type: string
+          format: uuid
+          title: Member ID
+          writeOnly: true
+        track_id:
+          type: string
+          format: uuid
+          title: Track ID
+          writeOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        content:
+          type: string
+          title: Comment Content
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - content
+      - created_at
+      - member
+      - member_id
+      - track
+      - track_id
+      - updated_at
+    GenreEnum:
+      enum:
+      - Pop
+      - Rock
+      - Jazz
+      - Classical
+      - HipHop
+      - Electronic
+      - Country
+      - Reggae
+      - Blues
+      - Metal
+      - Folk
+      - RnB
+      - Arabic
+      - Other
+      type: string
+      description: |-
+        * `Pop` - Pop
+        * `Rock` - Rock
+        * `Jazz` - Jazz
+        * `Classical` - Classical
+        * `HipHop` - HipHop
+        * `Electronic` - Electronic
+        * `Country` - Country
+        * `Reggae` - Reggae
+        * `Blues` - Blues
+        * `Metal` - Metal
+        * `Folk` - Folk
+        * `RnB` - RnB
+        * `Arabic` - Arabic
+        * `Other` - Other
+    Member:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        password:
+          type: string
+          writeOnly: true
+        birth_date:
+          type: string
+          format: date
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        last_login:
+          type: string
+          format: date-time
+          nullable: true
+        is_superuser:
+          type: boolean
+          title: Superuser status
+          description: Designates that this user has all permissions without explicitly
+            assigning them.
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        is_staff:
+          type: boolean
+          title: Staff status
+          description: Designates whether the user can log into this admin site.
+        is_active:
+          type: boolean
+          title: Active
+          description: Designates whether this user should be treated as active. Unselect
+            this instead of deleting accounts.
+        date_joined:
+          type: string
+          format: date-time
+        username:
+          type: string
+          title: Member Name
+          maxLength: 50
+        email:
+          type: string
+          format: email
+          title: Member Email
+          maxLength: 254
+        personal_img:
+          type: string
+          format: uri
+          nullable: true
+          title: Member Image
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Member Update
+        groups:
+          type: array
+          items:
+            type: integer
+          description: The groups this user belongs to. A user will get all permissions
+            granted to each of their groups.
+        user_permissions:
+          type: array
+          items:
+            type: integer
+          description: Specific permissions for this user.
+      required:
+      - birth_date
+      - created_at
+      - email
+      - id
+      - password
+      - updated_at
+      - username
+    MemberMini:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        username:
+          type: string
+          title: Member Name
+          maxLength: 50
+      required:
+      - id
+      - username
+    Owner:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+          title: Member ID
+        username:
+          type: string
+          title: Member Name
+          maxLength: 50
+        is_superuser:
+          type: boolean
+          title: Superuser status
+          description: Designates that this user has all permissions without explicitly
+            assigning them.
+      required:
+      - id
+      - username
+    PatchedComment:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Comment ID
+        member:
+          allOf:
+          - $ref: '#/components/schemas/MemberMini'
+          readOnly: true
+        track:
+          allOf:
+          - $ref: '#/components/schemas/Track'
+          readOnly: true
+        member_id:
+          type: string
+          format: uuid
+          title: Member ID
+          writeOnly: true
+        track_id:
+          type: string
+          format: uuid
+          title: Track ID
+          writeOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        content:
+          type: string
+          title: Comment Content
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+    PatchedMember:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        password:
+          type: string
+          writeOnly: true
+        birth_date:
+          type: string
+          format: date
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        last_login:
+          type: string
+          format: date-time
+          nullable: true
+        is_superuser:
+          type: boolean
+          title: Superuser status
+          description: Designates that this user has all permissions without explicitly
+            assigning them.
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        is_staff:
+          type: boolean
+          title: Staff status
+          description: Designates whether the user can log into this admin site.
+        is_active:
+          type: boolean
+          title: Active
+          description: Designates whether this user should be treated as active. Unselect
+            this instead of deleting accounts.
+        date_joined:
+          type: string
+          format: date-time
+        username:
+          type: string
+          title: Member Name
+          maxLength: 50
+        email:
+          type: string
+          format: email
+          title: Member Email
+          maxLength: 254
+        personal_img:
+          type: string
+          format: uri
+          nullable: true
+          title: Member Image
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Member Update
+        groups:
+          type: array
+          items:
+            type: integer
+          description: The groups this user belongs to. A user will get all permissions
+            granted to each of their groups.
+        user_permissions:
+          type: array
+          items:
+            type: integer
+          description: Specific permissions for this user.
+    PatchedPlaylistwriting:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        owner:
+          allOf:
+          - $ref: '#/components/schemas/Owner'
+          readOnly: true
+        owner_id:
+          type: string
+          format: uuid
+          title: Member ID
+          writeOnly: true
+        tracks:
+          type: array
+          items:
+            type: string
+            format: uuid
+            title: Track ID
+        tracks_count:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        cover:
+          type: string
+          format: uri
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+    PatchedTrack:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+          title: Track ID
+        artist:
+          allOf:
+          - $ref: '#/components/schemas/MemberMini'
+          readOnly: true
+        artist_id:
+          type: string
+          format: uuid
+          title: Member ID
+          writeOnly: true
+        duration:
+          type: string
+        reacts:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          title: Track Name
+          maxLength: 255
+        bio:
+          type: string
+          nullable: true
+          title: Track Bio
+        genre:
+          allOf:
+          - $ref: '#/components/schemas/GenreEnum'
+          title: Track Genre
+        plays:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+          title: Number of Plays
+        cover:
+          type: string
+          format: uri
+        audio_file:
+          type: string
+          format: uri
+          pattern: (?:mp3|wav|flac|ogg|aac|m4a)$
+    PlaylistReading:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        owner:
+          allOf:
+          - $ref: '#/components/schemas/Owner'
+          readOnly: true
+        tracks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Track'
+          readOnly: true
+        tracks_count:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        cover:
+          type: string
+          format: uri
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - name
+      - owner
+      - tracks
+      - tracks_count
+      - updated_at
+    Playlistwriting:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        owner:
+          allOf:
+          - $ref: '#/components/schemas/Owner'
+          readOnly: true
+        owner_id:
+          type: string
+          format: uuid
+          title: Member ID
+          writeOnly: true
+        tracks:
+          type: array
+          items:
+            type: string
+            format: uuid
+            title: Track ID
+        tracks_count:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        cover:
+          type: string
+          format: uri
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - name
+      - owner
+      - owner_id
+      - tracks
+      - tracks_count
+      - updated_at
+    React:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        member:
+          allOf:
+          - $ref: '#/components/schemas/MemberMini'
+          readOnly: true
+        track:
+          allOf:
+          - $ref: '#/components/schemas/Track'
+          readOnly: true
+        member_id:
+          type: string
+          format: uuid
+          title: Member ID
+          writeOnly: true
+        track_id:
+          type: string
+          format: uuid
+          title: Track ID
+          writeOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        reaction:
+          $ref: '#/components/schemas/ReactionEnum'
+      required:
+      - created_at
+      - id
+      - member
+      - member_id
+      - reaction
+      - track
+      - track_id
+    ReactionEnum:
+      enum:
+      - like
+      - love
+      - fire
+      - sad
+      type: string
+      description: "* `like` - \U0001F44D Like\n* `love` - ❤️ Love\n* `fire` - \U0001F525
+        Fire\n* `sad` - \U0001F622 Sad"
+    TokenObtainPair:
+      type: object
+      properties:
+        email:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          readOnly: true
+      required:
+      - access
+      - email
+      - password
+      - refresh
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          writeOnly: true
+      required:
+      - access
+      - refresh
+    Track:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+          title: Track ID
+        artist:
+          allOf:
+          - $ref: '#/components/schemas/MemberMini'
+          readOnly: true
+        artist_id:
+          type: string
+          format: uuid
+          title: Member ID
+          writeOnly: true
+        duration:
+          type: string
+        reacts:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          title: Track Name
+          maxLength: 255
+        bio:
+          type: string
+          nullable: true
+          title: Track Bio
+        genre:
+          allOf:
+          - $ref: '#/components/schemas/GenreEnum'
+          title: Track Genre
+        plays:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+          title: Number of Plays
+        cover:
+          type: string
+          format: uri
+        audio_file:
+          type: string
+          format: uri
+          pattern: (?:mp3|wav|flac|ogg|aac|m4a)$
+      required:
+      - artist
+      - artist_id
+      - audio_file
+      - id
+      - name
+      - reacts
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
