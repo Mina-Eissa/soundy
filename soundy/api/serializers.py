@@ -6,3 +6,4 @@ from .serializer.PlaylistWritingSerializer import PlaylistwritingSerializer
 from .serializer.MemberSignInSerializer import MemberSignInSerializer
 from .serializer.ReactSerializer import ReactSerializer
 from .serializer.CommentSerializer import CommentSerializer
+from .serializer.StreamSerializer import StreamSerializer

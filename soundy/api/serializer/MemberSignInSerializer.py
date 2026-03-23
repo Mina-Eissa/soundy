@@ -8,4 +8,4 @@ class MemberSignInSerializer(serializers.ModelSerializer):
     # personal_img=serializers.ImageField(required=False,allow_null=True)
     class Meta:
         model=Member
-        fields=['username','email','password','created_at','personal_img']    
+        fields=['id','username','email','password','created_at','personal_img']    
