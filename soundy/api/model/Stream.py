@@ -9,7 +9,8 @@ class Stream(models.Model):
     last_position = models.IntegerField(default=0)
     is_counted = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
+    time_spent =models.BigIntegerField(default=0,verbose_name="time spent in seconds")
     class Meta:
-        unique_together = ("member", "track")  # each member can react once per track
+        unique_together = ("member", "track")  # each member can play stream once per track
     def __str__(self):
-        return f"Stream of {self.track.name} listen by {self.member.username}"
+        return f"Stream of {self.track.name} listen by {self.member.username} for {self.time_spent} seconds"

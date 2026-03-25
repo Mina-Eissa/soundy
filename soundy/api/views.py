@@ -5,4 +5,4 @@ from .view.MemberSignInView import MemberSignInView
 from .view.MemberSignUpView import MemberSignUpView
 from .view.ReactView import ReactView
 from .view.CommentView import CommentView
-from .view.StreamStartView import StreamStartView
+from .view.StreamView import StreamGetOrCreateView,StreamPlayView

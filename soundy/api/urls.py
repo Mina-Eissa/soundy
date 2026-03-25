@@ -22,7 +22,8 @@ urlpatterns = [
     path('signup/',MemberSignUpView.as_view(),name='member_signup'),
     path('React/',ReactView.as_view(),name='track_member_react'),
     path('Comment/',CommentView.as_view(),name='track_member_comment'),
-    path('StreamStart/',StreamStartView.as_view(),name='stream_start'),
+    path('Stream/',StreamGetOrCreateView.as_view(),name='stream-create'),
+    path('Stream/<uuid:stream_id>/',StreamPlayView.as_view(),name='stream-play'),
     # JWT endpoints
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
