@@ -36,6 +36,7 @@ class AudioStreamMixin:
             if stream.time_spent >= 30 and stream.is_counted == False:
                 stream.track.plays += 1
                 stream.is_counted = True
+                stream.save(update_fields=['is_counted'])
                 stream.track.save(update_fields=['plays'])
     
     def position_to_byte(self, track_path, position, duration):
