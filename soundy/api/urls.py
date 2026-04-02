@@ -24,6 +24,10 @@ urlpatterns = [
     path('Comment/',CommentView.as_view(),name='track_member_comment'),
     path('Stream/',StreamGetOrCreateView.as_view(),name='stream-create'),
     path('Stream/<uuid:stream_id>/',StreamPlayView.as_view(),name='stream-play'),
+    path('Follow/',FollowCreateView.as_view(),name='follow-create'),
+    path('Following/',FollowingListView.as_view(),name='following-list'),
+    path('Followers/',FollowersListView.as_view(),name='followers-list'),
+    path('IsFollowing/<uuid:member_id>/',IsFollowingView.as_view(),name='is-following'),
     # JWT endpoints
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
