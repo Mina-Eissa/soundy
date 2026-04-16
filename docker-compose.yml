@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: soundy
+      POSTGRES_USER: mina
+      POSTGRES_PASSWORD: mina1234
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  web:
+    build: ./soundy
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./soundy:/soundy
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./soundy/.env
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
