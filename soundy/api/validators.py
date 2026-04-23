@@ -29,12 +29,20 @@ def validate_safe_text(value):
 
 
 def validate_audio_mime(value):
+    # Size limit: 5MB
+    if value.size > 5 * 1024 * 1024:
+        raise ValidationError("Audio file size must be under 5MB.")
+    
     mime = magic.from_buffer(value.read(2048), mime=True)
     value.seek(0)  # reset pointer after reading
     if not mime.startswith("audio/"):
         raise ValidationError("Only audio files are allowed.")
 
 def validate_image_mime(value):
+    # Size limit: 100MB
+    if value.size > 100 * 1024 * 1024:
+        raise ValidationError("Image size must be under 100MB.")
+    
     # Read first bytes of the file to detect type
     mime = magic.from_buffer(value.read(2048), mime=True)
     value.seek(0)  # reset file pointer after reading
