@@ -10,8 +10,8 @@ class MemberSignUpView(CreateAPIView):
     serializer_class = MemberSerializer
 
     def create(self, request, *args, **kwargs):
-        mem_password = request.data.get("password")
-        request.data["password"] = make_password(mem_password)
+        # mem_password = request.data.get("password")
+        # request.data["password"] = make_password(mem_password)
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)

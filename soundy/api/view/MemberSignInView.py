@@ -8,6 +8,7 @@ from ..serializers import MemberSignInSerializer
 class MemberSignInView(APIView):
     
     def post(self, request, *args, **kwargs):
+        print(request.body)
         mem_email = request.data.get("email")
         mem_password = request.data.get("password")
         try:
