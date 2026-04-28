@@ -12,7 +12,6 @@ class MemberViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def retrieve(self, request, *args, **kwargs):
-        print("AUTH HEADER:", request.headers.get("Authorization"))  # debug
 
         instance = self.get_object()
         serializer = self.get_serializer(instance)
