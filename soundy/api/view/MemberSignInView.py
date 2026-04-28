@@ -5,9 +5,12 @@ from django.contrib.auth.hashers import make_password,check_password
 from ..models import Member
 from api.auth import JWTAuthentication
 from ..serializers import MemberSignInSerializer
+import json
 class MemberSignInView(APIView):
     
     def post(self, request, *args, **kwargs):
+        tmp = json.loads(request.body.decode('utf-8'))
+        print(tmp)
         mem_email = request.data.get("email")
         mem_password = request.data.get("password")
         try:
