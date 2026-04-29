@@ -12,6 +12,8 @@ class TrackViewSet(FilterQueryMixin,viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     authentication_classes = [JWTAuthentication]
     
+    def perform_create(self, serializer):
+        serializer.save(artist=self.request.user)
     def get_queryset(self):
         filters = {
             'artist__id': self.request.query_params.get('member_id'),

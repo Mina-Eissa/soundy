@@ -20,6 +20,7 @@ urlpatterns = [
     path('', include(playlist_router.urls)),
     path('signin/',MemberSignInView.as_view(),name='member_signin'),
     path('signup/',MemberSignUpView.as_view(),name='member_signup'),
+    path('genre/',GenreListView.as_view(),name='genre-list'),
     path('React/',ReactView.as_view(),name='track_member_react'),
     path('Comment/',CommentView.as_view(),name='track_member_comment'),
     path('Stream/',StreamGetOrCreateView.as_view(),name='stream-create'),

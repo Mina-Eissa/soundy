@@ -10,17 +10,13 @@ class TrackSerializer(serializers.ModelSerializer):
     # Show nested artist details (read-only)
     artist = MemberMiniSerializer(read_only=True)
 
-    # Accept artist by id when writing
-    artist_id = serializers.PrimaryKeyRelatedField(
-        queryset=Member.objects.all(),
-        source="artist",
-        write_only=True
-    )
+    
     duration = serializers.DurationField(required=False)
     reacts = serializers.IntegerField(read_only=True)
     class Meta:
         model = Track
         fields = '__all__'
+        read_only_fields = ["duration"] 
     
     def create(self, validated_data):
         audio_file = validated_data.get("audio_file")

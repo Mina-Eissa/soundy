@@ -30,7 +30,7 @@ class Track(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False,verbose_name="Track ID")
     name = models.CharField(max_length=255, validators=[validate_name],verbose_name="Track Name")
     bio = models.TextField(validators=[validate_safe_text], blank=True, null=True,verbose_name="Track Bio")
-    duration = models.DurationField(verbose_name="Track Duration")
+    duration = models.DurationField(null=True,blank=True,verbose_name="Track Duration")
     genre = models.CharField(max_length=50, choices=Genre.choices, default=Genre.OTHER,verbose_name="Track Genre")
     plays = models.BigIntegerField(default=0,verbose_name="Number of Plays")
     artist = models.OneToOneField(Member, on_delete=models.CASCADE, related_name='tracks')

@@ -10,3 +10,4 @@ from .view.FollowCreateView import FollowCreateView
 from .view.FollowingListView import FollowingListView
 from .view.FollowersListView import FollowersListView
 from .view.IsFollowingView import IsFollowingView
+from .view.GenreView import GenreListView
