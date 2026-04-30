@@ -4,19 +4,17 @@ from ..serializers import MemberMiniSerializer, TrackSerializer
 from ..models import Member, Track
 
 class CommentSerializer(serializers.ModelSerializer):
-    member = MemberMiniSerializer(read_only=True)
-    track = TrackSerializer(read_only=True)
-    member_id = serializers.PrimaryKeyRelatedField(
-        queryset = Member.objects.all(),
-        source = 'member',
-        write_only = True
-    )
-    track_id = serializers.PrimaryKeyRelatedField(
-        queryset = Track.objects.all(),
-        source = 'track',
-        write_only= True
-    )
-    created_at=serializers.DateTimeField(read_only=True,format="%Y-%m-%d %H:%M:%S")
+    userid = serializers.UUIDField(source="member.id", read_only=True)
+    username = serializers.CharField(source="member.username", read_only=True)
+    userimage = serializers.SerializerMethodField()
+    created_at = serializers.DateTimeField(read_only=True, format="%Y-%m-%d %H:%M:%S")
     class Meta:
         model = Comment
-        fields = '__all__'
+        fields = ["id","userid","username","userimage","content","created_at"]
+    
+    def get_userimage(self, obj):
+        request = self.context.get("request")
+        if obj.member and obj.member.personal_img:
+            url = obj.member.personal_img.url
+            return request.build_absolute_uri(url) if request else url
+        return None
