@@ -19,7 +19,7 @@ class React(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE, related_name="reactions")
     track = models.ForeignKey(Track, on_delete=models.CASCADE, related_name="reactions")
     reaction = models.CharField(max_length=20, choices=REACTION_CHOICES)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True,db_index=True)
 
     class Meta:
         unique_together = ("member", "track")  # each member can react once per track

@@ -9,14 +9,36 @@ import os
 class TrackSerializer(serializers.ModelSerializer):
     # Show nested artist details (read-only)
     artist = MemberMiniSerializer(read_only=True)
+    duration = serializers.DurationField(required=False)
+    plays = serializers.SerializerMethodField()
+    reacts = serializers.SerializerMethodField()
+    comments = serializers.SerializerMethodField()
+    published_at=serializers.DateTimeField(format="%Y-%m-%d %H:%M",read_only=True)
+    cover = serializers.SerializerMethodField()
 
     
-    duration = serializers.DurationField(required=False)
-    reacts = serializers.IntegerField(read_only=True)
     class Meta:
         model = Track
         fields = '__all__'
-        read_only_fields = ["duration"] 
+        read_only_fields = ["duration"]
+        
+        
+    def get_plays(self, obj):
+        return getattr(obj, "plays_count", 0)
+    def get_reacts(self,obj):
+        return getattr(obj, "reacts_count", 0)
+    def get_comments(self,obj):
+        return getattr(obj, "comments_count", 0)
+    
+    def get_cover(self, obj):
+        request = self.context.get("request")
+        if obj.cover:
+            url = obj.cover.url
+            if request:
+                return request.build_absolute_uri(url)
+            else:
+                return url
+        return None
     
     def create(self, validated_data):
         audio_file = validated_data.get("audio_file")

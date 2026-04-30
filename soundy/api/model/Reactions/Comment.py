@@ -8,7 +8,7 @@ class Comment(models.Model):
     content = models.TextField(validators=[validate_safe_text],verbose_name="Comment Content")
     track = models.ForeignKey(Track,on_delete=models.CASCADE,related_name="comments")
     member = models.ForeignKey(Member,on_delete=models.CASCADE,related_name="comments")
-    created_at = models.DateTimeField(auto_now_add=True,verbose_name="Created At")
+    created_at = models.DateTimeField(auto_now_add=True,verbose_name="Created At",db_index=True)
     updated_at = models.DateTimeField(auto_now=True,verbose_name="Updated At")
     
     def __str__(self):

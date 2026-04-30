@@ -11,3 +11,4 @@ from .view.FollowingListView import FollowingListView
 from .view.FollowersListView import FollowersListView
 from .view.IsFollowingView import IsFollowingView
 from .view.GenreView import GenreListView
+from .view.FeaturedTracksView import FeaturedTracksView

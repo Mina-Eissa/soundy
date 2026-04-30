@@ -15,12 +15,13 @@ playlist_router = DefaultRouter()
 playlist_router.register(r'playlist', PlaylistViewSet)
 
 urlpatterns = [
+    path('track/featured/',FeaturedTracksView.as_view(),name='featured-tracks'),
+    path('track/genre/',GenreListView.as_view(),name='genre-list'),
+    path('signin/',MemberSignInView.as_view(),name='member_signin'),
+    path('signup/',MemberSignUpView.as_view(),name='member_signup'),
     path('', include(member_router.urls)),
     path('',include(track_router.urls)),
     path('', include(playlist_router.urls)),
-    path('signin/',MemberSignInView.as_view(),name='member_signin'),
-    path('signup/',MemberSignUpView.as_view(),name='member_signup'),
-    path('genre/',GenreListView.as_view(),name='genre-list'),
     path('React/',ReactView.as_view(),name='track_member_react'),
     path('Comment/',CommentView.as_view(),name='track_member_comment'),
     path('Stream/',StreamGetOrCreateView.as_view(),name='stream-create'),
