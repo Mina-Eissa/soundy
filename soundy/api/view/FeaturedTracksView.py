@@ -16,31 +16,29 @@ from api.serializers import TrackSerializer
 class FeaturedTracksView(APIView):
     permission_classes = [AllowAny]
     def get(self, request):
-        last_24h = timezone.now() - timedelta(hours=24)
+        # last_24h = timezone.now() - timedelta(hours=24)
 
-        # 🔥 Top 5 in last 24h
-        top_24h = (
+        # # 🔥 Top 5 in last 24h
+        # top_24h = (
+        #     Track.objects.annotate(
+        #         plays_count=Count("plays", filter=Q(plays__timestamp__gte=last_24h)),
+        #         reacts_count=Count("reactions", filter=Q(reactions__created_at__gte=last_24h)),
+        #         comments_count=Count("comments", filter=Q(comments__created_at__gte=last_24h)),
+        #     )
+        #     .order_by("-plays_count", "-reacts_count", "-comments_count")
+        # )[:5]
+        # # 🔥 Remaining tracks (all-time)
+        orderedList = ( # exclude(id__in=top_24h.values_list("id", flat=True))
             Track.objects.annotate(
-                plays_count=Count("plays", filter=Q(plays__timestamp__gte=last_24h)),
-                reacts_count=Count("reactions", filter=Q(reactions__created_at__gte=last_24h)),
-                comments_count=Count("comments", filter=Q(comments__created_at__gte=last_24h)),
-            )
-            .order_by("-plays_count", "-reacts_count", "-comments_count")
-        )[:5]
-
-        # 🔥 Remaining tracks (all-time)
-        remaining = (
-            Track.objects.exclude(id__in=top_24h.values_list("id", flat=True))
-            .annotate(
-                plays_count=Count("plays"),
-                reacts_count=Count("reactions"),
-                comments_count=Count("comments"),
+                plays_count=Count("plays",distinct=True),
+                reacts_count=Count("reactions",distinct=True),
+                comments_count=Count("comments",distinct=True),
             )
             .order_by("-plays_count", "-reacts_count", "-comments_count")
         )
 
         # 🔥 Combine results
-        final_tracks = list(top_24h) + list(remaining)
+        final_tracks = list(orderedList)
 
         serializer = TrackSerializer(final_tracks, many=True,context={"request": request})
         return Response(serializer.data)
