@@ -7,3 +7,4 @@ from .serializer.MemberSignInSerializer import MemberSignInSerializer
 from .serializer.ReactSerializer import ReactSerializer
 from .serializer.CommentSerializer import CommentSerializer
 from .serializer.StreamSerializer import StreamSerializer
+from .serializer.MemberProfileSerializer import MemberProfileSerializer

@@ -14,9 +14,9 @@ class RecentTracksView(APIView):
     permission_classes = [AllowAny]
     def get(self, request):
         recent_tracks = Track.objects.annotate(
-            plays_count=Count("plays"),
-            reacts_count=Count("reactions"),
-            comments_count=Count("comments"),
+            plays_count=Count("plays",distinct=True),
+            reacts_count=Count("reactions",distinct=True),
+            comments_count=Count("comments",distinct=True),
             ).order_by("-published_at")[:20]  # Get the 20 most recent tracks
         serializer = TrackSerializer(recent_tracks, many=True, context={"request": request})
         return Response(serializer.data)

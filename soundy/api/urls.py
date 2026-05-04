@@ -22,6 +22,7 @@ urlpatterns = [
     path('track/<uuid:track_id>/reacts/',ReactView.as_view(),name='track_member_react'),
     path('signin/',MemberSignInView.as_view(),name='member_signin'),
     path('signup/',MemberSignUpView.as_view(),name='member_signup'),
+    path('member/tracks/',TracksForMember.as_view(),name='tracks-for-member'),
     path('', include(member_router.urls)),
     path('',include(track_router.urls)),
     path('', include(playlist_router.urls)),
