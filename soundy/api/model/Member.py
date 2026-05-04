@@ -10,16 +10,23 @@ def member_image(instance, filename):
     ext = filename.split('.')[-1]
     return f"Members_Images/{instance.username}-{instance.id}.{ext}"
 
+def member_wallpaper(instance, filename):
+    # Generate a unique filename using UUID
+    ext = filename.split('.')[-1]
+    return f"Members_Wallpapers/{instance.username}-{instance.id}.{ext}"
+
 class Member(AbstractUser):
     id = models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False,verbose_name="Member ID")
     username = models.CharField(max_length=50,validators=[validate_name],verbose_name="Member Name")
     email = models.EmailField(unique=True,verbose_name="Member Email")
     birth_date = models.DateField(verbose_name="Member Birth Date",null=True,blank=True)
+    bio = models.TextField(verbose_name="Member Bio",validators=[validate_safe_text],blank=True,null=True)
     personal_img = models.ImageField(upload_to=member_image,verbose_name="Member Image",validators=[validate_image_mime],blank=True,null= True)
+    wallpaper_img = models.ImageField(upload_to=member_wallpaper,verbose_name="Member Wallpaper",validators=[validate_image_mime],blank=True,null= True)
     created_at=models.DateTimeField(auto_now_add=True,verbose_name="Member Creation")
     updated_at = models.DateTimeField(auto_now=True,verbose_name="Member Update")
     password = models.CharField(max_length=255,verbose_name="Member Password")
-   
+    
     USERNAME_FIELD='email' 
     REQUIRED_FIELDS = ['username']
     
