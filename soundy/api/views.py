@@ -6,7 +6,7 @@ from .view.MemberSignUpView import MemberSignUpView
 from .view.ReactView import ReactView
 from .view.CommentView import CommentView
 from .view.StreamView import StreamGetOrCreateView,StreamPlayView
-from .view.FollowCreateView import FollowCreateView
+from .view.FollowView import FollowView
 from .view.FollowingListView import FollowingListView
 from .view.FollowersListView import FollowersListView
 from .view.IsFollowingView import IsFollowingView
