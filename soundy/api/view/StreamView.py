@@ -9,6 +9,7 @@ from api.models import Track,Member
 from api.view.AudioStreamMixin import AudioStreamMixin
 from api.serializers import TrackSerializer
 from api.auth import JWTAuthentication
+from django.http import HttpResponse
 
 class StreamPlayView(APIView, AudioStreamMixin):
     permission_classes = [IsAuthenticated]
@@ -16,44 +17,46 @@ class StreamPlayView(APIView, AudioStreamMixin):
     
     def get(self, request, stream_id):
         """
-            Handle GET for streaming audio. Supports 'position' query param for seeking.
+        Audio streaming using HTTP Range (byte-based streaming).
         """
-        # Get stream session (optional tracking)
+
         stream = self.get_or_create_stream(request, stream_id)
-        if stream:
-            track = stream.track
-            track_duration = track.duration.total_seconds()
-            
-        # Parse position (seek support)
-        if request.query_params.get('position'):
-            position = float(request.query_params.get('position', 0.0))
-        else:
-            position = stream.last_position
-        position = max(0.0, min(position, track_duration))  # Clamp
-        
-        # Calculate chunk bytes
-        track_path = track.audio_file.path
-        start_byte = self.position_to_byte(track_path, position, track_duration)
-        bytes_per_second = os.path.getsize(track_path) / track_duration
-        actual_chunk_duration = min(self.CHUNK_DURATION, track_duration - position)
-        end_byte = int(math.ceil((position + actual_chunk_duration) * bytes_per_second))
-        
-        # Update stream position & time spent
-        self.update_stream_position(stream, position+actual_chunk_duration,track_duration)
-        self.update_stream_time_spent(stream, actual_chunk_duration)
-        
-        
-        # Metadata for frontend
-        metadata = {
-            'track_id': track.id,
-            'duration': track_duration,
-            'position': position,
-            'stream_id': stream.id if stream else None
-        }
-        
-        # Stream response
-        return self.stream_audio_response(track_path, start_byte, end_byte, metadata)
-    
+        if not stream:
+            return Response({"error": "Stream not found"}, status=404)
+
+        track = stream.track
+        file_path = track.audio_file.path
+
+        if not os.path.exists(file_path):
+            return Response({"error": "File not found"}, status=404)
+
+        file_size = os.path.getsize(file_path)
+
+        range_header = request.headers.get("Range")
+        if not range_header:
+            range_header = "bytes=0-"
+
+        bytes_range = range_header.replace("bytes=", "").split("-")
+
+        start = int(bytes_range[0]) if bytes_range[0] else 0
+        end = int(bytes_range[1]) if len(bytes_range) > 1 and bytes_range[1] else file_size - 1
+
+        start = max(0, start)
+        end = min(end, file_size - 1)
+
+        length = end - start + 1
+
+        with open(file_path, "rb") as f:
+            f.seek(start)
+            data = f.read(length)
+
+        response = HttpResponse(data, status=206, content_type="audio/mpeg")
+
+        response["Content-Range"] = f"bytes {start}-{end}/{file_size}"
+        response["Accept-Ranges"] = "bytes"
+        response["Content-Length"] = str(length)
+
+        return response
 class StreamGetOrCreateView(APIView, AudioStreamMixin):
     permission_classes = [IsAuthenticated]
     authentication_classes = [JWTAuthentication]
@@ -61,12 +64,9 @@ class StreamGetOrCreateView(APIView, AudioStreamMixin):
         """
             Handle POST to create/get stream session for a track. Expects 'member_id' and 'track_id' in body.
         """
-        member_id = request.data.get('member_id')
+        member = request.user
         track_id = request.data.get('track_id')
-        try:
-            member = Member.objects.get(id=member_id)
-        except Member.DoesNotExist:
-            return Response({'error': 'Member not found'}, status=status.HTTP_404_NOT_FOUND)
+        
         try:
             track = Track.objects.get(id=track_id)
         except Track.DoesNotExist:

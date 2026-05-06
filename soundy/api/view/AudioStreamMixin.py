@@ -2,7 +2,7 @@
 import os
 from django.http import StreamingHttpResponse
 from django.contrib.auth.models import AnonymousUser,AbstractUser
-from api.models import Stream, Track
+from api.models import Stream, Track,Play
 
 class AudioStreamMixin:
     CHUNK_DURATION = 10.0  # seconds per chunk
@@ -34,10 +34,11 @@ class AudioStreamMixin:
             stream.time_spent += time_spent
             stream.save(update_fields=['time_spent'])
             if stream.time_spent >= 30 and stream.is_counted == False:
-                stream.track.plays += 1
+                Play.objects.create(
+                    member=stream.member,
+                    track=stream.track)
                 stream.is_counted = True
                 stream.save(update_fields=['is_counted'])
-                stream.track.save(update_fields=['plays'])
     
     def position_to_byte(self, track_path, position, duration):
         """Convert seconds → bytes"""

@@ -14,7 +14,7 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 from pathlib import Path
-
+from corsheaders.defaults import default_headers
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,6 +40,14 @@ CORS_ALLOWED_ORIGINS = [
 ]
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:8080",
+]
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    "range",
+]
+CORS_EXPOSE_HEADERS = [
+    "Content-Range",
+    "Accept-Ranges",
+    "Content-Length",
 ]
 CORS_ALLOW_ALL_ORIGINS = True # for development only
 CORS_ALLOW_CREDENTIALS = True

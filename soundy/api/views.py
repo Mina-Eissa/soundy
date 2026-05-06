@@ -5,7 +5,6 @@ from .view.MemberSignInView import MemberSignInView
 from .view.MemberSignUpView import MemberSignUpView
 from .view.ReactView import ReactView
 from .view.CommentView import CommentView
-from .view.StreamView import StreamGetOrCreateView,StreamPlayView
 from .view.FollowView import FollowView
 from .view.FollowingListView import FollowingListView
 from .view.FollowersListView import FollowersListView
@@ -14,3 +13,5 @@ from .view.GenreView import GenreListView
 from .view.FeaturedTracksView import FeaturedTracksView
 from .view.RecentTracksView import RecentTracksView
 from .view.TracksForMember import TracksForMember
+from .view.StremInitView import StreamInitView
+from .view.StreamGetChunksView import StreamChunkView

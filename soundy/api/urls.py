@@ -20,6 +20,8 @@ urlpatterns = [
     path('track/genre/',GenreListView.as_view(),name='genre-list'),
     path('track/<uuid:track_id>/comments/',CommentView.as_view(),name='track_member_comment'),
     path('track/<uuid:track_id>/reacts/',ReactView.as_view(),name='track_member_react'),
+    path('track/stream/init/',StreamInitView.as_view(),name='stream-create'),
+    path('track/stream/<uuid:stream_id>/',StreamChunkView.as_view(),name='stream-play'),
     path('signin/',MemberSignInView.as_view(),name='member_signin'),
     path('signup/',MemberSignUpView.as_view(),name='member_signup'),
     path('member/tracks/',TracksForMember.as_view(),name='tracks-for-member'),
@@ -27,8 +29,6 @@ urlpatterns = [
     path('', include(member_router.urls)),
     path('',include(track_router.urls)),
     path('', include(playlist_router.urls)),
-    path('Stream/',StreamGetOrCreateView.as_view(),name='stream-create'),
-    path('Stream/<uuid:stream_id>/',StreamPlayView.as_view(),name='stream-play'),
     path('Following/',FollowingListView.as_view(),name='following-list'),
     path('Followers/',FollowersListView.as_view(),name='followers-list'),
     # JWT endpoints
