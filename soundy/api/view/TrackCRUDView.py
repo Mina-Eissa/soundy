@@ -18,7 +18,10 @@ class TrackViewSet(FilterQueryMixin,viewsets.ModelViewSet):
         filters = {
             'artist__id': self.request.query_params.get('member_id'),
             'genre__iexact': self.request.query_params.get('genre'),
-            'plays': self.request.query_params.get('plays'),
         }
-        queryset = self.filter_query(Track.objects.annotate(reacts=Count('reactions')), filters)
+        queryset = Track.objects.annotate(
+        plays_count=Count('plays', distinct=True),
+        reacts_count=Count('reactions', distinct=True),
+        comments_count=Count('comments', distinct=True),
+        )
         return queryset

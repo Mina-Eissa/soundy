@@ -9,7 +9,7 @@ import os
 class TrackSerializer(serializers.ModelSerializer):
     # Show nested artist details (read-only)
     artist = MemberMiniSerializer(read_only=True)
-    duration = serializers.DurationField(required=False)
+    duration = serializers.SerializerMethodField(read_only=True)
     plays = serializers.SerializerMethodField()
     reacts = serializers.SerializerMethodField()
     comments = serializers.SerializerMethodField()
@@ -29,7 +29,8 @@ class TrackSerializer(serializers.ModelSerializer):
         return getattr(obj, "reacts_count", 0)
     def get_comments(self,obj):
         return getattr(obj, "comments_count", 0)
-    
+    def get_duration(self, obj):
+        return obj.duration.total_seconds() if obj.duration else 0
     def get_cover(self, obj):
         request = self.context.get("request")
         if obj.cover:
