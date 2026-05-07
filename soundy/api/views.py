@@ -15,3 +15,4 @@ from .view.RecentTracksView import RecentTracksView
 from .view.TracksForMember import TracksForMember
 from .view.StremInitView import StreamInitView
 from .view.StreamGetChunksView import StreamChunkView
+from .view.SearchView import SearchView

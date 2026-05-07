@@ -26,6 +26,24 @@ def validate_safe_text(value):
         if word.lower() in value.lower():
             raise ValidationError("Invalid input, contains forbidden keywords.")
 
+def validate_query_text(value):
+    # 1) Prevent HTML tags
+    if re.search(r'<[^>]*>', value):
+        return ValidationError("HTML tags are not allowed.")
+    # 2) Prevent Operations 
+    if re.search(r'^[=;]+', value):
+        return ValidationError("any operations not allowed.")
+    # 3) Prevent common SQL injection words
+    forbidden_sql = [
+        "SELECT", "INSERT", "UPDATE", "DELETE",
+        "DROP", "ALTER", "CREATE", "EXEC",
+        "UNION", "CAST"
+    ]
+    for word in forbidden_sql:
+        if word.lower() in value.lower():
+            return ValidationError("Invalid input, contains forbidden keywords.")
+    return value
+
 
 
 def validate_audio_mime(value):

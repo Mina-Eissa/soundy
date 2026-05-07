@@ -17,7 +17,7 @@ def member_wallpaper(instance, filename):
 
 class Member(AbstractUser):
     id = models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False,verbose_name="Member ID")
-    username = models.CharField(max_length=50,validators=[validate_name],verbose_name="Member Name")
+    username = models.CharField(max_length=50,validators=[validate_name],verbose_name="Member Name",db_index=True)
     email = models.EmailField(unique=True,verbose_name="Member Email")
     birth_date = models.DateField(verbose_name="Member Birth Date",null=True,blank=True)
     bio = models.TextField(verbose_name="Member Bio",validators=[validate_safe_text],blank=True,null=True)

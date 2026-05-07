@@ -28,10 +28,10 @@ class Genre(models.TextChoices):
     
 class Track(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False,verbose_name="Track ID")
-    name = models.CharField(max_length=255, validators=[validate_name],verbose_name="Track Name")
+    name = models.CharField(max_length=255, validators=[validate_name],verbose_name="Track Name",db_index=True)
     bio = models.TextField(validators=[validate_safe_text], blank=True, null=True,verbose_name="Track Bio")
     duration = models.DurationField(null=True,blank=True,verbose_name="Track Duration")
-    genre = models.CharField(max_length=50, choices=Genre.choices, default=Genre.OTHER,verbose_name="Track Genre")
+    genre = models.CharField(max_length=50, choices=Genre.choices, default=Genre.OTHER,verbose_name="Track Genre",db_index=True)
     artist = models.OneToOneField(Member, on_delete=models.CASCADE, related_name='tracks')
     cover = models.ImageField(upload_to='track_covers/',validators=[validate_image_mime],default='track_covers/audio_template.jpg')
     audio_file = models.FileField(upload_to=track_audio,validators=[FileExtensionValidator(allowed_extensions=['mp3','wav','flac','ogg','aac','m4a'])])

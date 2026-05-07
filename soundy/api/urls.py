@@ -26,6 +26,7 @@ urlpatterns = [
     path('signup/',MemberSignUpView.as_view(),name='member_signup'),
     path('member/tracks/',TracksForMember.as_view(),name='tracks-for-member'),
     path('member/<uuid:member_id>/follow/',FollowView.as_view(),name='follow-member'),
+    path('search/',SearchView.as_view(),name='search'),
     path('', include(member_router.urls)),
     path('',include(track_router.urls)),
     path('', include(playlist_router.urls)),
