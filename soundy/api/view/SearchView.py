@@ -41,7 +41,7 @@ class SearchView(APIView):
         ).select_related("artist")[:10]
 
         return Response({
-            "artists": MemberProfileSerializer(artists, many=True).data,
+            "artists": MemberProfileSerializer(artists, many=True,context={"request":request}).data,
             "genres": genres,
-            "tracks": TrackSerializer(tracks, many=True).data,
+            "tracks": TrackSerializer(tracks, many=True,context={"request":request}).data,
         })

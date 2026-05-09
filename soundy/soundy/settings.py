@@ -29,6 +29,11 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
+# for debug tools
+INTERNAL_IPS = [
+    "127.0.0.1",
+    "0.0.0.0",
+]
 
 ALLOWED_HOSTS = [
     "localhost",
@@ -66,6 +71,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'drf_spectacular',
     'corsheaders',
+    "debug_toolbar",
 ]
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -75,6 +81,7 @@ REST_FRAMEWORK = {
 }
 
 MIDDLEWARE = [
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -176,7 +183,7 @@ SIMPLE_JWT = {
     "BLACKLIST_AFTER_ROTATION": True,
 }
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'My API',
+    'TITLE': 'API Documentation',
     'DESCRIPTION': 'My backend APIs',
     'VERSION': '1.0.0',
 }

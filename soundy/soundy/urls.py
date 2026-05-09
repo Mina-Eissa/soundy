@@ -24,6 +24,7 @@ from drf_spectacular.views import (
     SpectacularSwaggerView,
     SpectacularRedocView,
 )
+import debug_toolbar
 urlpatterns = [
     # schema
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
@@ -33,7 +34,9 @@ urlpatterns = [
 
     # Redoc UI (optional)
     path('api/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
-
+    # for debug toolbar
+    path('__debug__/', include(debug_toolbar.urls)),
+    
     path('admin/', admin.site.urls),
     path('api/',include('api.urls')),
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
