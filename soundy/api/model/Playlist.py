@@ -9,9 +9,11 @@ def playlist_cover(instance, filename):
 class Playlist(models.Model): 
     id = models.UUIDField(primary_key=True,editable=False,default=uuid.uuid4)
     name = models.CharField(max_length=100,validators=[validate_name])
-    owner = models.OneToOneField(Member,on_delete=models.CASCADE)
+    owner = models.OneToOneField(Member,on_delete=models.CASCADE,related_name="playlists")
+    description = models.TextField(blank=True,validators=[validate_safe_text])
     cover = models.ImageField(upload_to=playlist_cover,validators=[validate_image_mime],null=True,blank=True)
     tracks = models.ManyToManyField(Track,blank=True)
+    is_public = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
